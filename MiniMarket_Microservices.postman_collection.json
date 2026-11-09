@@ -1,0 +1,136 @@
+{
+  "info": {
+    "name": "Mini Market - Sistema de Gestión de Inventario (Microservicios)",
+    "_postman_id": "a91f38e1-74c2-49a0-9e34-21f4b0c98123",
+    "description": "Colección Postman oficial para las Fases 1, 2, 3 y 4 del proyecto de microservicios Product-Service (8081) e Inventory-Service (8082).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Fase 1 - Product-Service (Catálogo)",
+      "item": [
+        {
+          "name": "1. Listar todos los productos (GET /products)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8081/products"
+          }
+        },
+        {
+          "name": "2. Obtener producto por ID (GET /products/1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8081/products/1"
+          }
+        },
+        {
+          "name": "3. Crear nuevo producto (POST /products)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Atún Van Camps en Agua 160g\",\n  \"categoria\": \"Enlatados y Conservas\",\n  \"precio\": 7600.00,\n  \"descripcion\": \"Lomos de atún en agua lata 160 gramos\",\n  \"codigoBarras\": \"7702045006063\",\n  \"estado\": \"ACTIVO\"\n}"
+            },
+            "url": "http://localhost:8081/products"
+          }
+        },
+        {
+          "name": "4. Actualizar producto (PUT /products/1)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Arroz Diana Premium 1kg Selección\",\n  \"categoria\": \"Granos y Cereales\",\n  \"precio\": 4950.00,\n  \"descripcion\": \"Arroz blanco seleccionado de grano entero bolsa 1000g\",\n  \"codigoBarras\": \"7702001001018\",\n  \"estado\": \"ACTIVO\"\n}"
+            },
+            "url": "http://localhost:8081/products/1"
+          }
+        },
+        {
+          "name": "5. Eliminar producto (DELETE /products/5)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:8081/products/5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fases 2, 3 y 4 - Inventory-Service e Integración REST",
+      "item": [
+        {
+          "name": "Caso 1 - Registrar stock inicial para producto existente (POST /inventory)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productoId\": 1,\n  \"cantidad\": 50,\n  \"ubicacion\": \"Pasillo A - Estante 1\"\n}"
+            },
+            "url": "http://localhost:8082/inventory"
+          }
+        },
+        {
+          "name": "Caso 2 - Intentar registrar inventario de producto inexistente -> 404 (POST /inventory)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productoId\": 999,\n  \"cantidad\": 25,\n  \"ubicacion\": \"Pasillo Z - Bodega\"\n}"
+            },
+            "url": "http://localhost:8082/inventory"
+          }
+        },
+        {
+          "name": "Caso 3 - Intentar salida superior al stock disponible -> 400 (POST /inventory/movements)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productoId\": 1,\n  \"tipoMovimiento\": \"SALIDA\",\n  \"cantidad\": 80,\n  \"observacion\": \"Intento de salida superior al stock actual (50)\"\n}"
+            },
+            "url": "http://localhost:8082/inventory/movements"
+          }
+        },
+        {
+          "name": "Registrar movimiento de ENTRADA (POST /inventory/movements)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productoId\": 1,\n  \"tipoMovimiento\": \"ENTRADA\",\n  \"cantidad\": 20,\n  \"observacion\": \"Reposición semanal del proveedor\"\n}"
+            },
+            "url": "http://localhost:8082/inventory/movements"
+          }
+        },
+        {
+          "name": "Registrar movimiento de SALIDA válida (POST /inventory/movements)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productoId\": 1,\n  \"tipoMovimiento\": \"SALIDA\",\n  \"cantidad\": 12,\n  \"observacion\": \"Venta mostrador caja 1\"\n}"
+            },
+            "url": "http://localhost:8082/inventory/movements"
+          }
+        },
+        {
+          "name": "Caso 4 - Consultar producto y sus existencias unificadas (GET /inventory/product/1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8082/inventory/product/1"
+          }
+        }
+      ]
+    }
+  ]
+}

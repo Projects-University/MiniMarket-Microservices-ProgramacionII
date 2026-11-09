@@ -1,0 +1,5 @@
+INSERT INTO products (nombre, categoria, precio, descripcion, codigo_barras, estado) VALUES ('Arroz Diana Premium 1kg', 'Granos y Cereales', 4800.00, 'Arroz blanco seleccionado de grano entero bolsa 1000g', '7702001001018', 'ACTIVO');
+INSERT INTO products (nombre, categoria, precio, descripcion, codigo_barras, estado) VALUES ('Leche Entera Alquería 1.1L', 'Lácteos', 5200.00, 'Leche entera ultrapasteurizada larga vida', '7702177002025', 'ACTIVO');
+INSERT INTO products (nombre, categoria, precio, descripcion, codigo_barras, estado) VALUES ('Aceite Girasol Premier 900ml', 'Aceites y Grasas', 12900.00, 'Aceite vegetal 100% puro de girasol sin colesterol', '7702090003032', 'ACTIVO');
+INSERT INTO products (nombre, categoria, precio, descripcion, codigo_barras, estado) VALUES ('Café Sello Rojo Tradicional 500g', 'Bebidas Calientes', 18500.00, 'Café tostado y molido de origen colombiano', '7702032004049', 'ACTIVO');
+INSERT INTO products (nombre, categoria, precio, descripcion, codigo_barras, estado) VALUES ('Detergente Líquido Ariel 1.2L', 'Aseo del Hogar', 21400.00, 'Detergente líquido concentrado para ropa de color y blanca', '7702018005056', 'ACTIVO');
